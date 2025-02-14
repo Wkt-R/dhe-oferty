@@ -5,7 +5,7 @@ require 'uri'
 
 class WebflowService
   BASE_URL = "https://api.webflow.com/v2"
-  API_TOKEN = "bf860fad4455c37fceab0378f6052a94e0eae31f56ffffdb49cdf1524ed275f4"  # Your Webflow API token
+  API_TOKEN = ENV['WEBFLOW_API_TOKEN']  # Your Webflow API token
   COLLECTION_ID = "67ad9d254e168b338b4e4a9b"  # Your Webflow Collection ID
 
   def self.get_custom_fields
