@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flask API Interaction</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;700&display=swap" rel="stylesheet">
+
+
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
+</head>
+
+<body>
+  <div class="flash">
+  <% if flash[:notice] %>
+    <div></div>
+  <% elsif flash[:alert] %>
+    <div></div>
+  <% end %>
+  </div>
+
+  <div id="opis-popup" class="popup-overlay">
+  <div class="popup-content">
+    <span class="popup-close" onclick="closeOpisPopup()">&times;</span>
+    <h3>Pełny Opis</h3>
+    <p id="opis-popup-text"></p>
+  </div>
+</div>
+
+  <div id="flash-container">
+  <% flash.each do |type, message| %>
+    <div class="flash-message <%= type %>"><%= message %></div>
+  <% end %>
+</div>
+
+<script>
+  setTimeout(function() {
+    document.querySelectorAll('.flash-message').forEach(function(el) {
+      el.style.transition = "opacity 0.5s";
+      el.style.opacity = "0";
+      setTimeout(() => el.remove(), 500);
+    });
+  }, 3000);
+</script>
+
+
+  <%= yield %>
+</body>
+</html>

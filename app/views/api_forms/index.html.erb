@@ -1,0 +1,33 @@
+<% if @api_data && @api_data.any? %>
+  <div class="data-container">
+    <% @api_data.each do |item| %>
+      <div class="data-item">
+        <div class="data-item-header">
+          <h3><%= item[:stanowisko] || "No position available" %></h3>
+          <%= link_to 'Edit', edit_api_form_path(item[:id]), class: "edit-button" %>
+        </div>
+        <div class="data-item-body">
+          <p><strong>Lokalizacja:</strong> <%= item[:lokalizacja] || "No location available" %></p>
+          <div class="opis-container" onclick="showOpisPopup('<%= j(item[:opis]) %>')">
+            <%= item[:opis].truncate(100) %> 
+            <span class="read-more">[Kliknij, aby zobaczyć więcej]</span>
+          </div>
+          <p><strong>Wymagania:</strong> <%= (item[:wymagania] || "No requirements available").html_safe %></p>
+          <p><strong>Status:</strong> <%= item[:aktywne] ? "Aktywne" : "Niekatywny" %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>No data available.</p>
+<% end %>
+<script>
+  function showOpisPopup(opisContent) {
+    document.getElementById("opis-popup-text").innerHTML = opisContent;
+    document.getElementById("opis-popup").style.display = "flex";
+  }
+
+  function closeOpisPopup() {
+    document.getElementById("opis-popup").style.display = "none";
+  }
+</script>
