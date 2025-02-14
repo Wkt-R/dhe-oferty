@@ -1,7 +1,7 @@
 # app/services/webflow_service.rb
-require 'net/http'
-require 'json'
-require 'uri'
+require "net/http"
+require "json"
+require "uri"
 
 class WebflowService
   BASE_URL = "https://api.webflow.com/v2"
@@ -10,7 +10,7 @@ class WebflowService
 
   def self.get_custom_fields
     uri = URI("#{BASE_URL}/collections/#{COLLECTION_ID}/items")
-    
+
     request = Net::HTTP::Get.new(uri)
     request["Authorization"] = "Bearer #{API_TOKEN}"
 
@@ -34,9 +34,9 @@ class WebflowService
           aktywne: item["fieldData"]["aktywne-2"]
         }
       end
-      return items
+      items
     else
-      return { error: "Failed to fetch data from Webflow: #{response.body}" }
+      { error: "Failed to fetch data from Webflow: #{response.body}" }
     end
   end
 
@@ -62,6 +62,40 @@ class WebflowService
     end
 
     Rails.logger.debug("Webflow API Update Response: #{response.body}")
+
+    if response.is_a?(Net::HTTPSuccess)
+      { success: true }
+    else
+      { success: false, error: response.body }
+    end
+  end
+
+  def self.create_item(new_data)
+    uri = URI("#{BASE_URL}/collections/#{COLLECTION_ID}/items")
+    request = Net::HTTP::Post.new(uri)
+    request["Authorization"] = "Bearer #{API_TOKEN}"
+    request["Content-Type"] = "application/json"
+
+    # Correct request body structure without createdAt field
+    request.body = {
+      "items" => [
+        {
+          "fieldData" => {
+            "name" => new_data[:stanowisko],  # Adjust if needed based on your Webflow collection schema
+            "stanowisko" => new_data[:stanowisko],
+            "lokalizacja" => new_data[:lokalizacja],
+            "opis-i-wymagania" => new_data[:opis],
+            "wymagania2" => new_data[:wymagania],
+            "aktywne-2" => new_data[:aktywne]
+          }
+        }
+      ]
+    }.to_json
+
+    # Send the request
+    response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+      http.request(request)
+    end
 
     if response.is_a?(Net::HTTPSuccess)
       { success: true }

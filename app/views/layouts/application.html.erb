@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Flask API Interaction</title>
+  <title>DHE job offers</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   
@@ -29,23 +29,32 @@
   </div>
 </div>
 
+  <div id="wymagania-popup" class="popup-overlay">
+  <div class="popup-content">
+    <span class="popup-close" onclick="closeWymaganiaPopup()">&times;</span>
+    <h3>Pełne wymagania</h3>
+    <p id="wymagania-popup-text"></p>
+  </div>
+</div>
+
   <div id="flash-container">
   <% flash.each do |type, message| %>
     <div class="flash-message <%= type %>"><%= message %></div>
   <% end %>
 </div>
 
-<script>
-  setTimeout(function() {
-    document.querySelectorAll('.flash-message').forEach(function(el) {
-      el.style.transition = "opacity 0.5s";
-      el.style.opacity = "0";
-      setTimeout(() => el.remove(), 500);
-    });
-  }, 3000);
-</script>
 
 
   <%= yield %>
+<script>
+    // Automatically hide and remove flash messages after 3 seconds
+    setTimeout(function() {
+      document.querySelectorAll('.flash-message').forEach(function(el) {
+        el.style.transition = "opacity 0.5s ease-in-out";
+        el.style.opacity = "0"; // Fade out the flash message
+        setTimeout(() => el.remove(), 500); // Remove the message from the DOM after fade-out
+      });
+    }, 3000); // Adjust the time (in milliseconds) for the message to stay visible
+  </script>
 </body>
 </html>

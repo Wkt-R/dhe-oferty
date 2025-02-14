@@ -1,0 +1,65 @@
+<% if @item %>
+  <%= form_with(url: api_form_path(@item[:id]), method: :put) do |f| %>
+    <div>
+      <%= f.label :stanowisko, "Stanowisko" %>
+      <div contenteditable="true" class="editable-textarea" id="stanowisko">
+        <%= raw @item[:stanowisko] %>
+      </div>
+      <%= f.hidden_field :stanowisko, id: "stanowisko_hidden", value: @item[:stanowisko] %>
+    </div>
+
+    <div>
+      <%= f.label :lokalizacja, "Lokalizacja" %>
+      <div contenteditable="true" class="editable-textarea" id="lokalizacja">
+        <%= raw @item[:lokalizacja] %>
+      </div>
+      <%= f.hidden_field :lokalizacja, id: "lokalizacja_hidden", value: @item[:lokalizacja] %>
+    </div>
+
+    <div>
+      <%= f.label :opis, "Opis" %>
+      <div contenteditable="true" class="editable-textarea large" id="opis">
+        <%= raw @item[:opis] %>
+      </div>
+      <%= f.hidden_field :opis, id: "opis_hidden", value: @item[:opis] %>
+    </div>
+
+    <div>
+      <%= f.label :wymagania, "Wymagania" %>
+      <div contenteditable="true" class="editable-textarea large" id="wymagania">
+        <%= raw @item[:wymagania] %>
+      </div>
+      <%= f.hidden_field :wymagania, id: "wymagania_hidden", value: @item[:wymagania] %>
+    </div>
+
+    <div>
+      <%= f.label :aktywne, "Aktywne" %>
+      <%= f.check_box :aktywne, checked: @item[:aktywne] %>
+    </div>
+
+    <%= f.submit "Save" %>
+  <% end %>
+<% else %>
+  <p>Item not found.</p>
+<% end %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    function syncContent(id) {
+      let div = document.getElementById(id);
+      let hiddenInput = document.getElementById(id + "_hidden");
+
+      div.addEventListener("input", function() {
+        hiddenInput.value = div.innerHTML;
+      });
+
+      // Initialize hidden input with current content
+      hiddenInput.value = div.innerHTML;
+    }
+
+    syncContent("stanowisko");
+    syncContent("lokalizacja");
+    syncContent("opis");
+    syncContent("wymagania");
+  });
+</script>
