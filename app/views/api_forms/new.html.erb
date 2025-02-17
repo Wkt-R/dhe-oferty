@@ -7,8 +7,7 @@
 
   <div>
     <%= f.label :lokalizacja, "Lokalizacja" %>
-    <div contenteditable="true" class="editable-textarea" id="lokalizacja"></div>
-    <%= f.hidden_field :lokalizacja, id: "lokalizacja_hidden" %>
+    <%= f.select :lokalizacja, options_for_select(["Niezabyszewo", "Gdańsk", "Ostrava", "Lędziny", "Leicester"]), {}, { id: "lokalizacja_select" } %>
   </div>
 
   <div>
@@ -46,7 +45,6 @@
     }
 
     syncContent("stanowisko");
-    syncContent("lokalizacja");
     syncContent("opis");
     syncContent("wymagania");
   });

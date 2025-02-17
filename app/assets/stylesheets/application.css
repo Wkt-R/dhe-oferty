@@ -285,9 +285,9 @@ form a:hover {
 }
 
 #flash-container {
-  position: center;
+  position: fixed;
   bottom: 20px;
-  right: 20px;
+  right: center;
   z-index: 1000;
 }
 

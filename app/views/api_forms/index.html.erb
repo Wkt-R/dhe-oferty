@@ -1,57 +1,64 @@
-  <% if @api_data && @api_data.any? %>
-      <% @api_data.group_by { |item| item[:lokalizacja] }.each do |lokalizacja, items| %>
-        <div class="lokalizacja-section">
-          <h2><%= lokalizacja.presence || "Brak lokalizacji" %></h2>
-          <div class="data-container">
-            <% items.each do |item| %>
-              <div class="data-item">
-                <div class="data-item-header">
-                  <h3><%= item[:stanowisko] || "No position available" %></h3>
-                  <%= link_to 'Edit', edit_api_form_path(item[:id]), class: "edit-button" %>
-                </div>
-                <div class="data-item-body">
-                  <div class="opis-container" onclick="showOpisPopup('<%= j(item[:opis]) %>')">
-                    <%= item[:opis].truncate(100) %> 
-                    <span class="read-more">[Kliknij, aby zobaczyć więcej]</span>
-                  </div>
-                  <p><strong>Wymagania:</strong>
-                    <div class="wymagania-container" onclick="showWymaganiaPopup('<%= j(item[:wymagania]) %>')">
-                      <%= sanitize(item[:wymagania], tags: [], attributes: []).truncate(100) %>
-                      <span class="read-more">[Kliknij, aby zobaczyć więcej]</span>
-                    </div>
-                  </p>
-                  <p><strong>Status:</strong> <%= item[:aktywne] ? "Aktywne" : "Niekatywny" %></p>
-                </div>
+<% if @api_data && @api_data.any? %>
+  <%  
+    predefined_order = ["Niezabyszewo", "Gdańsk", "Ostrava", "Lędziny", "Leicester"]
+    
+    grouped_data = @api_data.group_by { |item| item[:lokalizacja] }
+    
+    sorted_grouped_data = predefined_order.map do |lokalizacja|
+      [lokalizacja, grouped_data[lokalizacja] || []]
+    end
+  %>
+
+  <% sorted_grouped_data.each do |lokalizacja, items| %>
+    <div class="lokalizacja-section">
+      <h2><%= lokalizacja.presence || "Misspelled localization" %></h2>
+      <div class="data-container">
+        <% items.each do |item| %>
+          <div class="data-item">
+            <div class="data-item-header">
+              <h3><%= item[:stanowisko] || "No position available" %></h3>
+              <%= link_to 'Edit', edit_api_form_path(item[:id]), class: "edit-button" %>
+            </div>
+            <div class="data-item-body">
+              <div class="opis-container" onclick="showOpisPopup('<%= j(item[:opis]) %>')">
+                <%= item[:opis].truncate(100) %> 
+                <span class="read-more">[Kliknij, aby zobaczyć więcej]</span>
               </div>
-            <% end %>
+              <p><strong>Wymagania:</strong>
+                <div class="wymagania-container" onclick="showWymaganiaPopup('<%= j(item[:wymagania]) %>')">
+                  <%= sanitize(item[:wymagania], tags: [], attributes: []).truncate(100) %>
+                  <span class="read-more">[Kliknij, aby zobaczyć więcej]</span>
+                </div>
+              </p>
+              <p><strong>Status:</strong> <%= item[:aktywne] ? "Aktywne" : "Niekatywny" %></p>
+            </div>
           </div>
-        </div>
+        <% end %>
       </div>
-    <% end %>
-  <% else %>
-    <p>No data available.</p>
+    </div>
   <% end %>
+<% else %>
+  <p>No data available.</p>
+<% end %>
 
-  <script>
-    function showOpisPopup(opisContent) {
-      document.getElementById("opis-popup-text").innerHTML = opisContent;
-      document.getElementById("opis-popup").style.display = "flex";
-    }
+<script>
+  function showOpisPopup(opisContent) {
+    document.getElementById("opis-popup-text").innerHTML = opisContent;
+    document.getElementById("opis-popup").style.display = "flex";
+  }
 
-    function closeOpisPopup() {
-      document.getElementById("opis-popup").style.display = "none";
-    }
+  function closeOpisPopup() {
+    document.getElementById("opis-popup").style.display = "none";
+  }
 
-    function showWymaganiaPopup(wymaganiaContent) {
-      document.getElementById("wymagania-popup-text").innerHTML = wymaganiaContent;
-      document.getElementById("wymagania-popup").style.display = "flex";
-    }
+  function showWymaganiaPopup(wymaganiaContent) {
+    document.getElementById("wymagania-popup-text").innerHTML = wymaganiaContent;
+    document.getElementById("wymagania-popup").style.display = "flex";
+  }
 
-    function closeWymaganiaPopup() {
-      document.getElementById("wymagania-popup").style.display = "none";
-    }
-  </script>
-</div>
+  function closeWymaganiaPopup() {
+    document.getElementById("wymagania-popup").style.display = "none";
+  }
+</script>
 
-
- <%= link_to 'Add New', new_api_form_path, class: "add-new-button" %>
+<%= link_to 'Add New', new_api_form_path, class: "add-new-button" %>
