@@ -11,15 +11,9 @@
   </div>
 
   <div>
-    <%= f.label :opis, "Opis" %>
-    <div contenteditable="true" class="editable-textarea large" id="opis"></div>
-    <%= f.hidden_field :opis, id: "opis_hidden" %>
-  </div>
-
-  <div>
-    <%= f.label :wymagania, "Wymagania" %>
-    <div contenteditable="true" class="editable-textarea large" id="wymagania"></div>
-    <%= f.hidden_field :wymagania, id: "wymagania_hidden" %>
+    <%= f.label :opis_stanowiska, "Opis stanowiska" %>
+    <div contenteditable="true" class="editable-textarea large" id="opis_stanowiska"></div>
+    <%= f.hidden_field :opis_stanowiska, id: "opis_stanowiska_hidden" %>
   </div>
 
   <div>
@@ -45,7 +39,6 @@
     }
 
     syncContent("stanowisko");
-    syncContent("opis");
-    syncContent("wymagania");
+    syncContent("opis_stanowiska");
   });
 </script>

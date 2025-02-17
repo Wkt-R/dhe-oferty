@@ -20,13 +20,9 @@
               <%= link_to 'Edit', edit_api_form_path(item[:id]), class: "edit-button" %>
             </div>
             <div class="data-item-body">
-              <div class="opis-container" onclick="showOpisPopup('<%= j(item[:opis]) %>')">
-                <%= item[:opis].truncate(100) %> 
-                <span class="read-more">[Kliknij, aby zobaczyć więcej]</span>
-              </div>
-              <p><strong>Wymagania:</strong>
-                <div class="wymagania-container" onclick="showWymaganiaPopup('<%= j(item[:wymagania]) %>')">
-                  <%= sanitize(item[:wymagania], tags: [], attributes: []).truncate(100) %>
+              <p><strong>Opis stanowiska:</strong>
+                <div class="opis_stanowiska-container" onclick="showWymaganiaPopup('<%= j(item[:opis_stanowiska]) %>')">
+                  <%= sanitize(item[:opis_stanowiska], tags: [], attributes: []).truncate(100) %>
                   <span class="read-more">[Kliknij, aby zobaczyć więcej]</span>
                 </div>
               </p>
@@ -42,14 +38,6 @@
 <% end %>
 
 <script>
-  function showOpisPopup(opisContent) {
-    document.getElementById("opis-popup-text").innerHTML = opisContent;
-    document.getElementById("opis-popup").style.display = "flex";
-  }
-
-  function closeOpisPopup() {
-    document.getElementById("opis-popup").style.display = "none";
-  }
 
   function showWymaganiaPopup(wymaganiaContent) {
     document.getElementById("wymagania-popup-text").innerHTML = wymaganiaContent;

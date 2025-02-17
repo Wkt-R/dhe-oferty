@@ -23,8 +23,7 @@ class ApiFormsController < ApplicationController
     updated_data = {
       stanowisko: params[:stanowisko],
       lokalizacja: params[:lokalizacja],
-      opis: params[:opis],
-      wymagania: params[:wymagania],
+      opis_stanowiska: params[:opis_stanowiska],
       aktywne: params[:aktywne] == "1"
     }
 
@@ -48,8 +47,7 @@ class ApiFormsController < ApplicationController
     new_data = {
       stanowisko: params[:stanowisko],
       lokalizacja: params[:lokalizacja],
-      opis: params[:opis],
-      wymagania: params[:wymagania],
+      opis_stanowiska: params[:opis_stanowiska],
       aktywne: params[:aktywne] == "1",
       name: params[:stanowisko]
     }

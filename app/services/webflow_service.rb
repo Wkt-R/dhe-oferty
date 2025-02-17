@@ -22,8 +22,7 @@ class WebflowService
           id: item["id"],
           stanowisko: item["fieldData"]["stanowisko"],
           lokalizacja: item["fieldData"]["lokalizacja"],
-          opis: item["fieldData"]["opis-i-wymagania"],
-          wymagania: item["fieldData"]["wymagania2"],
+          opis_stanowiska: item["fieldData"]["wymagania2"],
           aktywne: item["fieldData"]["aktywne-2"]
         }
       end
@@ -43,8 +42,7 @@ class WebflowService
       fieldData: {
         "stanowisko" => updated_data[:stanowisko],
         "lokalizacja" => updated_data[:lokalizacja],
-        "opis-i-wymagania" => updated_data[:opis],
-        "wymagania2" => updated_data[:wymagania],
+        "wymagania2" => updated_data[:opis_stanowiska],
         "aktywne-2" => updated_data[:aktywne]
       }
     }.to_json
@@ -78,8 +76,7 @@ class WebflowService
             "name" => new_data[:stanowisko],
             "stanowisko" => new_data[:stanowisko],
             "lokalizacja" => new_data[:lokalizacja],
-            "opis-i-wymagania" => new_data[:opis],
-            "wymagania2" => new_data[:wymagania],
+            "wymagania2" => new_data[:opis_stanowiska],
             "aktywne-2" => new_data[:aktywne]
           }
         }
