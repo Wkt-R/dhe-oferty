@@ -1,6 +1,6 @@
 class WebflowService
   BASE_URL = "https://api.webflow.com/v2"
-  API_TOKEN = ENV["WEBFLOW_API_TOKEN"]
+  API_TOKEN = "bf860fad4455c37fceab0378f6052a94e0eae31f56ffffdb49cdf1524ed275f4"
   COLLECTION_ID = "67ad9d254e168b338b4e4a9b"
 
   def self.get_custom_fields
@@ -101,10 +101,11 @@ class WebflowService
   end
 
   def self.publish_item(collection_id, item_id)
-    uri = URI("https://api.webflow.com/collections/#{collection_id}/items/#{item_id}/publish")
+    uri = URI("https://api.webflow.com/v2/collections/#{collection_id}/items/publish")
     request = Net::HTTP::Post.new(uri)
     request["Authorization"] = "Bearer #{API_TOKEN}"
     request["Content-Type"] = "application/json"
+    request.body = { "itemIds" => [ item_id ] }.to_json
 
     response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
       http.request(request)
@@ -117,10 +118,10 @@ class WebflowService
       { success: true }
     else
       error_message = begin
-                         JSON.parse(response.body)["msg"] || response.body
-                       rescue
-                         response.body
-                       end
+                        JSON.parse(response.body)["msg"] || response.body
+                      rescue
+                        response.body
+                      end
       Rails.logger.error("Publish failed: #{error_message}")
       { success: false, error: error_message }
     end
