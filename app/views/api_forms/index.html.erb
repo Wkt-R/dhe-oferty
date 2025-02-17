@@ -1,6 +1,4 @@
-<div class="items-section">
   <% if @api_data && @api_data.any? %>
-    <div class="lokalizacja-parent-section">
       <% @api_data.group_by { |item| item[:lokalizacja] }.each do |lokalizacja, items| %>
         <div class="lokalizacja-section">
           <h2><%= lokalizacja.presence || "Brak lokalizacji" %></h2>
@@ -34,8 +32,6 @@
     <p>No data available.</p>
   <% end %>
 
-  <%= link_to 'Add New', new_api_form_path, class: "add-new-button" %>
-
   <script>
     function showOpisPopup(opisContent) {
       document.getElementById("opis-popup-text").innerHTML = opisContent;
@@ -56,3 +52,6 @@
     }
   </script>
 </div>
+
+
+ <%= link_to 'Add New', new_api_form_path, class: "add-new-button" %>

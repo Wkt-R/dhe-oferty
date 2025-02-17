@@ -4,14 +4,9 @@ class ApiFormsController < ApplicationController
   end
 
   def edit
-    # Log the ID to make sure it's being passed correctly
     Rails.logger.debug("Fetching item with ID: #{params[:id]}")
-
     @item = WebflowService.get_custom_fields.find { |i| i[:id] == params[:id] }
-
-    # Log @item to verify it's being set correctly
     Rails.logger.debug("Fetched item: #{@item}")
-
     if @item.nil?
       flash[:alert] = "Item not found"
       redirect_to api_forms_path
@@ -20,9 +15,8 @@ class ApiFormsController < ApplicationController
 
   def update
     Rails.logger.debug("Updating item with ID: #{params[:id]}")
-
     if params[:id].blank?
-      flash[:alert] = "Nie udalo sie zaladowac przedmiotow"
+      flash[:alert] = "Couldn't find the item you're trying to edit"
       redirect_to api_forms_path and return
     end
 
@@ -31,41 +25,40 @@ class ApiFormsController < ApplicationController
       lokalizacja: params[:lokalizacja],
       opis: params[:opis],
       wymagania: params[:wymagania],
-      aktywne: params[:aktywne] == "1" # Convert checkbox to boolean
+      aktywne: params[:aktywne] == "1"
     }
 
+    # Update the item
     result = WebflowService.update_item(params[:id], updated_data)
 
     if result[:success]
-      flash[:notice] = "Zapisano"
+      flash[:notice] = "Item saved and published"
       redirect_to api_forms_path
     else
-      flash[:alert] = "Problem: #{result[:error]}"
+      flash[:alert] = "Item saved but not published."
       render :edit
     end
   end
 
   def new
-    @item = {} # Empty hash to initialize the new form
+    @item = {}
   end
 
   def create
-    # Collect form data, including 'name' field
     new_data = {
       stanowisko: params[:stanowisko],
       lokalizacja: params[:lokalizacja],
       opis: params[:opis],
       wymagania: params[:wymagania],
-      aktywne: params[:aktywne] == "1", # Convert checkbox to boolean
-      name: params[:stanowisko]  # Make sure 'name' is passed
+      aktywne: params[:aktywne] == "1",
+      name: params[:stanowisko]
     }
 
-    # Call the WebflowService to create the item
+    # Create the item
     result = WebflowService.create_item(new_data)
 
-    # Handle the response and redirect accordingly
     if result[:success]
-      flash[:notice] = "Item created successfully."
+      flash[:notice] = "Item created and published successfully."
       redirect_to api_forms_path
     else
       flash[:alert] = "Error: #{result[:error]}"

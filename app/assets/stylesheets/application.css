@@ -1,8 +1,7 @@
-/* General body styling */
 body {
   font-family: 'Helvetica Neue', sans-serif;
-  background-color: #121212; /* Dark background */
-  color: #f4f4f4; /* Light text */
+  background-color: #121212;
+  color: #f4f4f4;
   margin: 0;
   padding: 0;
   display: flex;
@@ -12,7 +11,6 @@ body {
   min-height: 100vh;
 }
 
-/* Main container */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -20,23 +18,22 @@ body {
   margin: 0 auto;
 }
 
-/* Header styling */
 h1 {
-  color: #ff6a00; /* Orange color */
+  color: #ff6a00;
   font-size: 36px;
   text-align: center;
   margin-top: 50px;
   margin-bottom: 30px;
   font-weight: bold;
 }
-
-
-/* Data display grid */
+.lokalizacja-section{
+  width: 95%
+}
 .data-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; /* Space between items */
-  justify-content: flex-start; /* Align items from the left */
+  gap: 20px;
+  justify-content: space-between;
   width: 90%;
   padding-left: 20px;
   padding-right: 20px;
@@ -50,26 +47,25 @@ h1 {
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  flex: 1 1 calc(33.33% - 20px); /* Ensures all items are the same width */
+  width: 100%;
+  max-width: calc(33.33% - 20px);
   box-sizing: border-box;
-  min-height: 300px; /* Consistent height */
+  min-height: 250px;
   margin-bottom: 20px;
 }
 
-/* Adjustments for smaller screens */
 @media (max-width: 768px) {
   .data-item {
-    max-width: calc(50% - 20px); /* 50% width on medium screens */
+    max-width: calc(50% - 20px);
   }
 }
 
 @media (max-width: 480px) {
   .data-item {
-    max-width: 100%; /* Full width on small screens */
+    max-width: 100%;
   }
 }
 
-/* Data content styling */
 .data-item-header {
   display: flex;
   justify-content: space-between;
@@ -80,7 +76,7 @@ h1 {
 .data-item-header h3 {
   margin: 0;
   font-size: 20px;
-  color: #ff6a00; /* Orange color */
+  color: #ff6a00;
   font-weight: bold;
 }
 
@@ -109,10 +105,9 @@ h1 {
 }
 
 .data-item-body strong {
-  color: #ff6a00; /* Orange labels */
+  color: #ff6a00;
 }
 
-/* Flash messages for notifications */
 .flash {
   background-color: #ff6a00;
   color: #fff;
@@ -127,14 +122,13 @@ h1 {
 }
 
 .flash.alert {
-  background-color: #ff3333; /* Error alert */
+  background-color: #ff3333;
 }
 
 .flash.notice {
-  background-color: #4caf50; /* Success notification */
+  background-color: #4caf50;
 }
 
-/* Link (for back button) styling */
 form a {
   color: #ff6a00;
   text-decoration: none;
@@ -148,45 +142,34 @@ form a:hover {
   text-decoration: underline;
 }
 
-
-
-
-
-
-
-
-
-/* Modern Edit Form Styles */
 form {
-  background-color: #1e1e1e; /* Dark background for form */
-  padding: 40px; /* Increased padding for more spacious feel */
-  border-radius: 12px; /* Rounded corners */
-  width: 80%; /* Form now takes up 80% of the container width */
-  max-width: 1000px; /* Limit the form width on larger screens */
-  margin: 30px auto; /* Centering the form */
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4); /* Deeper shadow for a modern look */
+  background-color: #1e1e1e;
+  padding: 40px;
+  border-radius: 12px;
+  width: 80%;
+  max-width: 1000px;
+  margin: 30px auto;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Adds space between form fields */
+  gap: 20px;
 }
 
-/* Form Label Styling */
 form label {
   color: #f4f4f4;
-  font-weight: 600; /* Slightly bolder font for modern feel */
+  font-weight: 600;
   font-size: 18px;
   margin-bottom: 8px;
   display: block;
 }
 
-/* Form Input Styles */
 form input[type="text"],
 form input[type="checkbox"] {
   width: 100%;
-  padding: 14px 16px; /* More padding for larger inputs */
-  font-size: 18px; /* Increased font size for readability */
+  padding: 14px 16px;
+  font-size: 18px;
   border: 1px solid #666;
-  border-radius: 10px; /* Larger rounded corners */
+  border-radius: 10px;
   background-color: #333;
   color: #f4f4f4;
   margin-bottom: 18px;
@@ -200,56 +183,53 @@ form input[type="checkbox"]:focus {
   outline: none;
 }
 
-/* Larger textareas for 'opis' and 'wymagania' */
 form textarea {
   width: 100%;
-  padding: 14px 16px; /* More padding */
-  font-size: 18px; /* Consistent font size */
+  padding: 14px 16px;
+  font-size: 18px;
   border: 1px solid #666;
-  border-radius: 10px; /* Larger rounded corners */
+  border-radius: 10px;
   background-color: #333;
   color: #f4f4f4;
   margin-bottom: 18px;
-  height: 180px; /* Increased height for more space */
-  resize: vertical; /* Allow users to resize vertically */
+  height: 180px;
+  resize: vertical;
 }
 
 form input[type="checkbox"] {
   width: 24px;
   height: 24px;
   margin-right: 12px;
-  accent-color: #ff6a00; /* Orange color when checked */
+  accent-color: #ff6a00;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
 }
 
 form input[type="checkbox"]:checked {
-  background-color: #ff6a00; /* Orange when checked */
+  background-color: #ff6a00;
 }
 
 form input[type="checkbox"]:focus {
   outline: none;
-  box-shadow: 0 0 5px 2px rgba(255, 106, 0, 0.5); /* Orange glow when focused */
+  box-shadow: 0 0 5px 2px rgba(255, 106, 0, 0.5);
 }
 
-/* Submit Button Styles */
 form input[type="submit"] {
   background-color: #ff6a00;
   color: white;
-  padding: 18px 25px; /* Larger padding for the submit button */
-  font-size: 20px; /* Larger font size for a bolder look */
+  padding: 18px 25px;
+  font-size: 20px;
   border: none;
-  border-radius: 12px; /* More rounded corners */
+  border-radius: 12px;
   cursor: pointer;
   width: 100%;
   transition: background-color 0.3s ease;
 }
 
 form input[type="submit"]:hover {
-  background-color: #ff8c1a; /* Lighter orange on hover */
+  background-color: #ff8c1a;
 }
 
-/* Button and Links */
 form a {
   color: #ff6a00;
   text-decoration: none;
@@ -263,7 +243,6 @@ form a:hover {
   text-decoration: underline;
 }
 
-/* Flash messages */
 .flash {
   background-color: #ff6a00;
   color: #fff;
@@ -285,18 +264,17 @@ form a:hover {
   background-color: #4caf50;
 }
 
-/* Make the form more responsive on smaller screens */
 @media (max-width: 768px) {
   form {
-    padding: 30px; /* Adjust padding for smaller screens */
-    width: 90%; /* Make sure the form doesn't stretch too much */
+    padding: 30px;
+    width: 90%;
     max-width: 800px;
   }
 
   form input[type="text"],
   form input[type="checkbox"],
   form textarea {
-    font-size: 16px; /* Slightly smaller font size */
+    font-size: 16px;
     padding: 12px 14px;
   }
 
@@ -307,38 +285,31 @@ form a:hover {
 }
 
 #flash-container {
-  position: fixed;
-  bottom: 20px; /* Distance from the bottom of the screen */
-  left: 50%;
-  transform: translateX(-50%); /* Center the container horizontally */
-  width: auto;
-  z-index: 9999;
+  position: center;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
 }
 
-/* Individual flash message styling */
 .flash-message {
-  background-color: #333; /* Dark background */
-  color: #fff; /* White text */
-  padding: 15px 20px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  font-size: 16px;
+  background-color: #222;
+  color: #f4f4f4;
+  padding: 12px 18px;
+  margin: 5px 0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
   opacity: 1;
-  transition: opacity 0.5s ease-in-out; /* Fade-out effect */
-  min-width: 250px; /* Optional: set a minimum width */
+  transition: opacity 0.5s ease-in-out;
 }
 
-/* Flash message types */
 .flash-message.notice {
-  background-color: #4caf50; /* Green for success */
+  background-color: #4caf50;
 }
 
 .flash-message.alert {
-  background-color: #f44336; /* Red for error */
-}
-
-.flash-message.warning {
-  background-color: #ff9800; /* Orange for warnings */
+  background-color: #f44336;
 }
 
 .opis-container {
@@ -347,42 +318,65 @@ form a:hover {
 }
 
 .read-more {
-  color: #FF6600; /* Orange color for the link */
+  color: #FF6600;
   font-size: 14px;
   cursor: pointer;
 }
 
-.opis-container {
-  cursor: pointer;
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: #1a1a1a;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 60%;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
   position: relative;
 }
+
+.popup-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: #FF6600;
+  cursor: pointer;
+}
+
+.popup-close:hover {
+  color: #FF3300;
+}
+
 .add-new-button {
   position: fixed;
-  bottom: 20px;  /* Space from the bottom of the screen */
-  right: 20px;   /* Space from the right edge */
-  background-color: #ff6a00; /* Orange background */
-  color: white;  /* White text */
-  padding: 15px 25px; /* Larger padding for a bolder look */
-  font-size: 18px; /* Larger font size */
-  font-weight: bold; /* Bold text for prominence */
-  border-radius: 12px; /* Rounded corners */
-  border: none;  /* Remove default border */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
-  cursor: pointer;
-  z-index: 9999; /* Ensure it's above other content */
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+  bottom: 20px;
+  right: 20px;
+  background-color: #ff6a00;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease;
+  z-index: 1000;
 }
 
 .add-new-button:hover {
-  background-color: #ff8c1a; /* Lighter orange on hover */
-  transform: scale(1.05); /* Slightly enlarge button on hover */
-}
-
-.add-new-button:focus {
-  outline: none; /* Remove the outline on focus */
-  box-shadow: 0 0 5px 2px rgba(255, 106, 0, 0.6); /* Orange glow when focused */
-}
-
-.popup-text {
-  text-align: left;
+  background-color: #ff8c1a;
 }

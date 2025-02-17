@@ -1,20 +1,13 @@
-# app/services/webflow_service.rb
-require "net/http"
-require "json"
-require "uri"
-
 class WebflowService
   BASE_URL = "https://api.webflow.com/v2"
-  API_TOKEN = "bf860fad4455c37fceab0378f6052a94e0eae31f56ffffdb49cdf1524ed275f4"  # Your Webflow API token
-  COLLECTION_ID = "67ad9d254e168b338b4e4a9b"  # Your Webflow Collection ID
+  API_TOKEN = ENV["wEBFLOW_API_TOKEN"]
+  COLLECTION_ID = "67ad9d254e168b338b4e4a9b"
 
   def self.get_custom_fields
     uri = URI("#{BASE_URL}/collections/#{COLLECTION_ID}/items")
-
     request = Net::HTTP::Get.new(uri)
     request["Authorization"] = "Bearer #{API_TOKEN}"
 
-    # Perform the request and return the response
     response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
       http.request(request)
     end
@@ -46,7 +39,6 @@ class WebflowService
     request["Authorization"] = "Bearer #{API_TOKEN}"
     request["Content-Type"] = "application/json"
 
-    # Map form fields to Webflow API fields
     request.body = {
       fieldData: {
         "stanowisko" => updated_data[:stanowisko],
@@ -64,7 +56,10 @@ class WebflowService
     Rails.logger.debug("Webflow API Update Response: #{response.body}")
 
     if response.is_a?(Net::HTTPSuccess)
-      { success: true }
+      data = JSON.parse(response.body)
+      item_id = data["id"]
+      publish_item(COLLECTION_ID, item_id)
+      { success: true, item_id: item_id }
     else
       { success: false, error: response.body }
     end
@@ -76,12 +71,11 @@ class WebflowService
     request["Authorization"] = "Bearer #{API_TOKEN}"
     request["Content-Type"] = "application/json"
 
-    # Correct request body structure without createdAt field
     request.body = {
       "items" => [
         {
           "fieldData" => {
-            "name" => new_data[:stanowisko],  # Adjust if needed based on your Webflow collection schema
+            "name" => new_data[:stanowisko],
             "stanowisko" => new_data[:stanowisko],
             "lokalizacja" => new_data[:lokalizacja],
             "opis-i-wymagania" => new_data[:opis],
@@ -92,15 +86,43 @@ class WebflowService
       ]
     }.to_json
 
-    # Send the request
     response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
       http.request(request)
     end
 
     if response.is_a?(Net::HTTPSuccess)
-      { success: true }
+      data = JSON.parse(response.body)
+      item_id = data["items"].first["id"]  # Get the ID of the newly created item
+      publish_item(COLLECTION_ID, item_id) # Publish the item immediately after creation
+      { success: true, item_id: item_id }
     else
       { success: false, error: response.body }
+    end
+  end
+
+  def self.publish_item(collection_id, item_id)
+    uri = URI("https://api.webflow.com/collections/#{collection_id}/items/#{item_id}/publish")
+    request = Net::HTTP::Post.new(uri)
+    request["Authorization"] = "Bearer #{API_TOKEN}"
+    request["Content-Type"] = "application/json"
+
+    response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+      http.request(request)
+    end
+
+    Rails.logger.debug("Webflow API Publish Item Response: #{response.body}")
+    Rails.logger.debug("Publish Item Response Status: #{response.code}")
+
+    if response.is_a?(Net::HTTPSuccess)
+      { success: true }
+    else
+      error_message = begin
+                         JSON.parse(response.body)["msg"] || response.body
+                       rescue
+                         response.body
+                       end
+      Rails.logger.error("Publish failed: #{error_message}")
+      { success: false, error: error_message }
     end
   end
 end
