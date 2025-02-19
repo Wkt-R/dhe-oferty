@@ -110,7 +110,7 @@ h1 {
   }
 
   .data-container {
-    width: 100%;
+    width: 95%;
     padding: 5px;
   }
 
@@ -146,7 +146,7 @@ h1 {
   .flash {
     padding: 10px;
     font-size: 14px;
-    max-width: 90%;
+    width: 10%;
   }
 
   .popup-content {
@@ -215,7 +215,6 @@ h1 {
   text-align: center;
   margin-top: 20px;
   border-radius: 8px;
-  width: 65%;
   max-width: 600px;
   margin: 20px auto;
 }
@@ -350,7 +349,7 @@ form a:hover {
   text-align: center;
   margin-top: 30px;
   border-radius: 10px;
-  width: 100%;
+  width: 60%;
   max-width: 1000px;
   margin: 30px auto;
 }

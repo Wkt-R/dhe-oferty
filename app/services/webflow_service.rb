@@ -48,8 +48,6 @@ class WebflowService
       http.request(request)
     end
 
-    Rails.logger.debug("Webflow API Update Response: #{response.body}")
-
     if response.is_a?(Net::HTTPSuccess)
       data = JSON.parse(response.body)
       item_id = data["id"]
@@ -104,9 +102,6 @@ class WebflowService
     response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
       http.request(request)
     end
-
-    Rails.logger.debug("Webflow API Publish Item Response: #{response.body}")
-    Rails.logger.debug("Publish Item Response Status: #{response.code}")
 
     if response.is_a?(Net::HTTPSuccess)
       { success: true }
