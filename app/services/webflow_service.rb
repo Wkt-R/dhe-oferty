@@ -1,6 +1,6 @@
 class WebflowService
   BASE_URL = "https://api.webflow.com/v2"
-  API_TOKEN = ENV['WEBFLOW_API_TOKEN']
+  API_TOKEN = ENV["WEBFLOW_API_TOKEN"]
   COLLECTION_ID = "67ad9d254e168b338b4e4a9b"
 
   def self.get_custom_fields
