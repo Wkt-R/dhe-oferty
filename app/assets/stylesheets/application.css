@@ -446,10 +446,11 @@ form a:hover {
     border-radius: 10px;
     width: 60%;
     max-width: 500px;
+    max-height: 80%;
     text-align: center;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
     position: relative;
-    height: 80%;
+    height: fit-content;
     overflow: auto;
     scrollbar-color: #FF6600 #1a1a1a;
 }
