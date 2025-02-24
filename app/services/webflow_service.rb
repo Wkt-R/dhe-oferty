@@ -1,6 +1,6 @@
 class WebflowService
   BASE_URL = "https://api.webflow.com/v2"
-  API_TOKEN = "bf860fad4455c37fceab0378f6052a94e0eae31f56ffffdb49cdf1524ed275f4"
+  API_TOKEN = ENV["WEBFLOW_API_TOKEN"]
   COLLECTION_ID = "67ad9d254e168b338b4e4a9b"
 
   def self.get_custom_fields
@@ -84,8 +84,8 @@ class WebflowService
 
     if response.is_a?(Net::HTTPSuccess)
       data = JSON.parse(response.body)
-      item_id = data["items"].first["id"]  # Get the ID of the newly created item
-      publish_item(COLLECTION_ID, item_id) # Publish the item immediately after creation
+      item_id = data["items"].first["id"]
+      publish_item(COLLECTION_ID, item_id)
       { success: true, item_id: item_id }
     else
       { success: false, error: response.body }
