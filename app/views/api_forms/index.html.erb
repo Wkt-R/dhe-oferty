@@ -8,7 +8,7 @@
       [lokalizacja, grouped_data[lokalizacja] || []]
     end
   %>
-
+<div class = "index-body">
   <% sorted_grouped_data.each do |lokalizacja, items| %>
     <div class="lokalizacja-section">
       <h2><%= lokalizacja.presence || "Misspelled localization" %></h2>
@@ -36,7 +36,7 @@
 <% else %>
   <p>No data available.</p>
 <% end %>
-
+</div>
 <script>
 
   function showWymaganiaPopup(wymaganiaContent) {
